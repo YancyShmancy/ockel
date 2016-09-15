@@ -1,0 +1,604 @@
+@import url(http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css);
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*****************
+Variables 
+*****************/
+* {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+
+.csstransforms .cn-wrapper {
+  font-size: 1em;
+  width: 26em;
+  height: 26em;
+  overflow: hidden;
+  position: fixed;
+  z-index: 10;
+  bottom: -13em;
+  left: 50%;
+  border-radius: 50%;
+  margin-left: -13em;
+  -webkit-transform: scale(0.1);
+  -ms-transform: scale(0.1);
+  -moz-transform: scale(0.1);
+  transform: scale(0.1);
+  pointer-events: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.csstransforms .opened-nav {
+  border-radius: 50%;
+  pointer-events: auto;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.cn-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.cn-overlay.on-overlay {
+  visibility: visible;
+  opacity: 1;
+}
+
+.cn-button {
+  border: none;
+  background: none;
+  color: #222;
+  text-align: center;
+  font-size: 1.8em;
+  padding-bottom: 1em;
+  height: 3.5em;
+  width: 3.5em;
+  background-color: #fff;
+  position: fixed;
+  left: 50%;
+  margin-left: -1.75em;
+  bottom: -1.75em;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 11;
+  outline: none;
+  transition-property: background-color, color;
+  transition-duration: 0.2s, 0.2s;
+}
+
+.cn-button:hover,
+.cn-button:active,
+.cn-button:focus {
+  background-color: #C33E94;
+  color: #fff;
+}
+
+.csstransforms .cn-wrapper li {
+  position: absolute;
+  font-size: 1.5em;
+  width: 10em;
+  height: 10em;
+  -webkit-transform-origin: 100% 100%;
+  -moz-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+  overflow: hidden;
+  left: 50%;
+  top: 50%;
+  margin-top: -1.3em;
+  margin-left: -10em;
+  -webkit-transition: border 0.3s ease;
+  -moz-transition: border 0.3s ease;
+  transition: border 0.3s ease;
+}
+
+.csstransforms .cn-wrapper li a {
+  display: block;
+  font-size: 1.18em;
+  height: 14.5em;
+  width: 14.5em;
+  position: absolute;
+  bottom: -7.25em;
+  right: -7.25em;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #fff;
+  padding-top: 1.8em;
+  text-align: center;
+  -webkit-transform: skew(-50deg) rotate(-70deg) scale(1);
+  -ms-transform: skew(-50deg) rotate(-70deg) scale(1);
+  -moz-transform: skew(-50deg) rotate(-70deg) scale(1);
+  transform: skew(-50deg) rotate(-70deg) scale(1);
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: opacity 0.3s, color 0.3s;
+  -moz-transition: opacity 0.3s, color 0.3s;
+  transition: opacity 0.3s, color 0.3s;
+}
+
+.csstransforms .cn-wrapper li a span {
+  font-size: 1.1em;
+  opacity: 0.7;
+}
+
+/* for a central angle x, the list items must be skewed by 90-x degrees
+in our case x=40deg so skew angle is 50deg
+items should be rotated by x, minus (sum of angles - 180)2s (for this demo) */
+.csstransforms .cn-wrapper li:first-child {
+  -webkit-transform: rotate(-10deg) skew(50deg);
+  -ms-transform: rotate(-10deg) skew(50deg);
+  -moz-transform: rotate(-10deg) skew(50deg);
+  transform: rotate(-10deg) skew(50deg);
+}
+
+.csstransforms .cn-wrapper li:nth-child(2) {
+  -webkit-transform: rotate(30deg) skew(50deg);
+  -ms-transform: rotate(30deg) skew(50deg);
+  -moz-transform: rotate(30deg) skew(50deg);
+  transform: rotate(30deg) skew(50deg);
+}
+
+.csstransforms .cn-wrapper li:nth-child(3) {
+  -webkit-transform: rotate(70deg) skew(50deg);
+  -ms-transform: rotate(70deg) skew(50deg);
+  -moz-transform: rotate(70deg) skew(50deg);
+  transform: rotate(70deg) skew(50deg);
+}
+
+.csstransforms .cn-wrapper li:nth-child(4) {
+  -webkit-transform: rotate(110deg) skew(50deg);
+  -ms-transform: rotate(110deg) skew(50deg);
+  -moz-transform: rotate(110deg) skew(50deg);
+  transform: rotate(110deg) skew(50deg);
+}
+
+.csstransforms .cn-wrapper li:nth-child(5) {
+  -webkit-transform: rotate(150deg) skew(50deg);
+  -ms-transform: rotate(150deg) skew(50deg);
+  -moz-transform: rotate(150deg) skew(50deg);
+  transform: rotate(150deg) skew(50deg);
+}
+
+.csstransforms .cn-wrapper li:nth-child(odd) a {
+  background-color: #222;
+}
+
+.csstransforms .cn-wrapper li:nth-child(even) a {
+  background-color: #444;
+}
+
+/* active style */
+.csstransforms .cn-wrapper li.active a {
+  background-color: #b31515;
+  background-color: #f66f6f;
+}
+
+/* hover style */
+.csstransforms .cn-wrapper li:not(.active) a:hover,
+.csstransforms .cn-wrapper li:not(.active) a:active,
+.csstransforms .cn-wrapper li:not(.active) a:focus {
+  background-color: #fff;
+  color: #C33E94;
+}
+
+.csstransforms .cn-wrapper li:not(.active) a:focus {
+  position: fixed;
+}
+
+/* fallback */
+.no-csstransforms .cn-button {
+  display: none;
+}
+
+.no-csstransforms .cn-wrapper li {
+  position: static;
+  float: left;
+  font-size: 1em;
+  height: 5em;
+  width: 5em;
+  background-color: #eee;
+  text-align: center;
+  line-height: 5em;
+}
+
+.no-csstransforms .cn-wrapper li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.3em;
+  border-right: 1px solid #ddd;
+}
+
+.no-csstransforms .cn-wrapper li a:last-child {
+  border: none;
+}
+
+.no-csstransforms .cn-wrapper li a:hover,
+.no-csstransforms .cn-wrapper li a:active,
+.no-csstransforms .cn-wrapper li a:focus {
+  background-color: white;
+}
+
+.no-csstransforms .cn-wrapper li.active a {
+  background-color: #6F325C;
+  color: #fff;
+}
+
+.no-csstransforms .cn-wrapper {
+  font-size: 1em;
+  height: 5em;
+  width: 25.15em;
+  bottom: 0;
+  margin-left: -12.5em;
+  overflow: hidden;
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  border: 1px solid #ddd;
+}
+
+@media screen and (max-width: 480px) {
+  .csstransforms .cn-wrapper {
+    font-size: .68em;
+  }
+  .cn-button {
+    font-size: 1em;
+  }
+  .csstransforms .cn-wrapper li {
+    font-size: 1.52em;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .no-csstransforms .cn-wrapper {
+    width: 15.15px;
+    margin-left: -7.5em;
+  }
+  .no-csstransforms .cn-wrapper li {
+    height: 3em;
+    width: 3em;
+  }
+}
+
+/*****************
+Mixins
+*****************/
+/* ***************
+Universal Styles
+*****************/
+body {
+  background: #222;
+  color: #fff;
+}
+
+p,
+a {
+  font-family: "Lato";
+}
+
+p {
+  font-size: 0.8em;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.underline {
+  background: #C33E94;
+  height: 2px;
+}
+
+h1 {
+  font-family: "Roboto";
+  font-size: 2.25em;
+  font-weight: 400;
+}
+
+.centered-body-p, #tech p, #design p {
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  width: 60%;
+  margin: 0 20%;
+  line-height: 2;
+}
+
+.body-h1, #tech h1, #design h1 {
+  width: 100%;
+  margin: 0px 0 10px 0;
+  text-align: center;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 2.25em;
+}
+
+.body-h1 span, #tech h1 span, #design h1 span {
+  font-weight: 300;
+  color: #C33E94;
+}
+
+.body-h2, #tech .body-text h2, #design .slide .slide-text h2 {
+  float: left;
+  font-family: "Lato";
+  font-weight: 700;
+  font-size: 1.7em;
+  text-transform: uppercase;
+}
+
+.body-h2 span, #tech .body-text h2 span, #design .slide .slide-text h2 span {
+  font-weight: 200;
+}
+
+.container {
+  float: left;
+  width: 90%;
+  margin: 0 5%;
+}
+
+.body-h1-underline, #tech .underline, #design .underline {
+  width: 50px;
+  margin: 20px auto 30px auto;
+}
+
+.body-h2-underline, #tech .body-text .underline, #design .slide .slide-text .underline {
+  float: left;
+  margin: 25px 70% 15px 0;
+  width: 30%;
+}
+
+.section-black, #design {
+  height: 100%;
+  background: #000;
+  padding: 100px 0 30px 0;
+}
+
+.section-grey, #tech, #support {
+  height: 100%;
+  padding: 100px 0 30px 0;
+}
+
+/***************** 
+Main Styles
+******************/
+section {
+  float: left;
+  width: 100%;
+}
+
+section.top-nav {
+  height: 50px;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+section.body-info {
+  height: 100%;
+}
+
+section.body-info > div {
+  border-bottom: 1px solid #444;
+}
+
+#hero {
+  height: 100vh;
+  width: 100%;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkYGD4z8DAwMgABXAGNgGwSgwVAFbmAgXxvZSoAAAAAElFTkSuQmCC"), url("../img/Ockel%20background.jpg");
+  background-repeat: repeat, no-repeat;
+  background-size: auto, cover;
+  background-position: auto, center;
+  z-index: -1;
+  background-attachment: fixed;
+  border-bottom: 1px solid #444;
+}
+
+#hero #logo {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  margin-left: -125px;
+  border-radius: 50%;
+  text-indent: -99999999px;
+  overflow: hidden;
+  background: url("../img/web_logo_ockel.png");
+  background-repeat: no-repeat;
+  background-position: 45%;
+  background-size: 150px;
+  transition: 0.2s linear;
+}
+
+#hero h1 {
+  position: absolute;
+  top: 49%;
+  width: 100%;
+  text-align: center;
+  font-family: "Roboto";
+  font-weight: 300;
+  font-size: 2.25em;
+}
+
+#hero h1 span {
+  color: #C33E94;
+  font-weight: 400;
+}
+
+#hero p {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  color: #C33E94;
+  text-align: center;
+  width: 300px;
+  margin-left: -150px;
+  letter-spacing: .5px;
+  font-family: "Lato";
+  background: rgba(25, 25, 25, 0.6);
+  padding: 15px;
+  font-weight: 300;
+}
+
+#hero a.hero-btn {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+  font-family: helvetica;
+  font-weight: 200;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.2s linear;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+#hero a.hero-btn:hover {
+  background: #fff;
+  color: #C33E94;
+}
+
+@media (max-width: 640px) {
+  #tech {
+    height: auto;
+  }
+}
+
+#tech h1 span {
+  font-weight: 300;
+  color: #C33E94;
+}
+
+@media (max-width: 640px) {
+  #tech h1 {
+    width: 90%;
+    margin: 50px 5% 30px 5%;
+  }
+}
+
+#tech .body-text {
+  float: right;
+  width: 40%;
+  margin: 40px 10% 0 0;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+@media (max-width: 640px) {
+  #tech .body-text {
+    width: 90%;
+    margin: 30px 5% 30px 5%;
+  }
+}
+
+#tech .body-text ul {
+  float: left;
+  font-size: 0.9em;
+}
+
+#tech .body-text ul li {
+  float: left;
+  margin: 15px 0;
+  font-size: 0.8em;
+  letter-spacing: 0.5px;
+  width: 100%;
+}
+
+#tech .body-text ul li i {
+  color: #C33E94;
+  margin-right: 7px;
+}
+
+#tech .body-image {
+  float: left;
+  height: 400px;
+  margin: 90px 5% 0 0;
+  width: 45%;
+}
+
+@media (max-width: 640px) {
+  #tech .body-image {
+    width: 80%;
+    margin: 20px 10%;
+  }
+}
+
+#tech .body-image img {
+  float: right;
+  width: 400px;
+  height: auto;
+}
+
+#design .slide {
+  float: left;
+  width: 100%;
+  margin: 50px 0;
+}
+
+#design .slide .slide-text {
+  float: left;
+  width: 40%;
+  margin: 40px 10% 0 0;
+}
+
+#design .slide .slide-text h2 {
+  width: 100%;
+}
+
+#design .slide .slide-text p {
+  width: 100%;
+  text-align: left;
+  margin-left: 0;
+}
+
+#design .slide .slide-text p span {
+  color: #C33E94;
+  font-weight: 400;
+}
+
+#design .slide .slide-text.right {
+  margin: 40px 0 0 10%;
+}
+
+#design .slide .slide-img {
+  float: left;
+  width: 50%;
+  height: auto;
+  background: #fff;
+}
+
+#design .slide .slide-img img {
+  position: relative;
+  left: 50%;
+  margin-left: -250px;
+  width: 500px;
+}
